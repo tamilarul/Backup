@@ -1,0 +1,86 @@
+<testsuites id="" name="" tests="11" failures="1" skipped="5" errors="0" time="49.879084999999996">
+<testsuite name="Frontdesk\DeathCertificateTest.spec.js" timestamp="2025-09-03T07:19:59.327Z" hostname="chromium" tests="11" failures="1" skipped="5" time="46.761" errors="0">
+<testcase name="SC001 › TC001 - Login with valid credentials" classname="Frontdesk\DeathCertificateTest.spec.js" time="9.699">
+</testcase>
+<testcase name="SC001 › TC002 - Navigate to facilityfacility" classname="Frontdesk\DeathCertificateTest.spec.js" time="0.904">
+</testcase>
+<testcase name="SC001 › TC003 - Navigate death module and enter valid petname" classname="Frontdesk\DeathCertificateTest.spec.js" time="3.875">
+</testcase>
+<testcase name="SC001 › TC004 - Click cancel icon" classname="Frontdesk\DeathCertificateTest.spec.js" time="0">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="SC001 › TC005 - Death  Registration" classname="Frontdesk\DeathCertificateTest.spec.js" time="2.172">
+</testcase>
+<testcase name="SC001 › TC006 - Click cancel register" classname="Frontdesk\DeathCertificateTest.spec.js" time="0">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="SC001 › TC007 - Click submit register" classname="Frontdesk\DeathCertificateTest.spec.js" time="0">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="SC001 › TC008 - Search and view the certificate" classname="Frontdesk\DeathCertificateTest.spec.js" time="0.096">
+</testcase>
+<testcase name="SC001 › TC009 - Navigate back" classname="Frontdesk\DeathCertificateTest.spec.js" time="0">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="SC001 › TC010 - Cancel the certificate " classname="Frontdesk\DeathCertificateTest.spec.js" time="0">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+<testcase name="SC001 › TC010 - Print the certificate " classname="Frontdesk\DeathCertificateTest.spec.js" time="30.015">
+<failure message="DeathCertificateTest.spec.js:90:7 TC010 - Print the certificate " type="FAILURE">
+<![CDATA[  [chromium] › Frontdesk\DeathCertificateTest.spec.js:90:7 › SC001 › TC010 - Print the certificate  
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test ended.
+    Call log:
+      - waiting for locator('//button[@class=\'btn primary-btn print-btn-size btn-primary\']')
+
+
+       at ..\POM_Frontdesk\Death Certificate.js:94
+
+      92 | }
+      93 | async Print(){
+    > 94 |     await this.print_button.click();
+         |                             ^
+      95 |     await this.back_btn_print.click();
+      96 |    
+      97 |
+        at deathcertificate.Print (C:\Users\TamilselviArul\Desktop\backup\POM_Frontdesk\Death Certificate.js:94:29)
+        at C:\Users\TamilselviArul\Desktop\backup\tests\Frontdesk\DeathCertificateTest.spec.js:92:36
+
+    Error Context: ..\test-results\Frontdesk-DeathCertificate-11283-10---Print-the-certificate--chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|..\test-results\Frontdesk-DeathCertificate-11283-10---Print-the-certificate--chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
