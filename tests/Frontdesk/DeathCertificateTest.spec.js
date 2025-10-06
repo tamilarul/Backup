@@ -9,20 +9,18 @@ const Deathdata=require('../../utils/DeathCertificatedata.json');
 
 let page
 let context;
-test.describe("SC001", () => {
+const logindata = readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx", "login");
+const Assetdata = readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx", "Asset");
+
+test.describe.serial("SC001", () => {
     
     test("TC001 - Login with valid credentials", async ({ browser }) => {
         context = await browser.newContext();
         page = await context.newPage();
         const loginTest = new LoginPage(page);
-
-         const url=Logindata.url;
-       await loginTest.navigateURL(url);
-
-       const username=Logindata.username;
-       const password=Logindata.password;
-       
-        await loginTest.credentials(username,password);
+                const { Url, Username, Password } = logindata[0];
+                await loginTest.navigateURL(Url);
+                await loginTest.credentials(Username, Password);
     });
 
     test("TC002 - Navigate to facilityfacility", async ({}) => {
@@ -32,7 +30,7 @@ test.describe("SC001", () => {
     
      test("TC003 - Navigate death module and enter valid petname", async ({}) => {
         const deathcertificateTest = new deathcertificate(page);
-
+          const { Url, Username, Password } = logindata[0];
         const petname1=Deathdata.petname;
         const Id=Deathdata.petid;
         await deathcertificateTest.death(petname1,Id);
@@ -87,7 +85,7 @@ test.describe("SC001", () => {
 
 
       });
-      test("TC010 - Print the certificate ", async ({}) => {
+      test("TC011 - Print the certificate ", async ({}) => {
         const deathcertificateTest = new deathcertificate(page);
         await deathcertificateTest.Print();
 

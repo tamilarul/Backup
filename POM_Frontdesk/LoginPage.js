@@ -1,17 +1,17 @@
-class LoginPage{
+class LoginPage {
 
-    constructor(page){
-        this.page = page;
-        this.Loginbutton=page.locator("(//button[@class='btn secondary-btn cancel-btn-size btn-secondary'])[2]");
-        this.usernameField=page.locator("//input[@name='phone']");
-        this.passwordField=page.locator("//input[@name='password']");
-       // this.button=page.locator("//div[@class='login-button-box']/button");
-    this.switchrole=page.locator("//i[@class='v-icon notranslate mdi-24px mdi mdi-account-switch theme--light']");
-    this.user=page.locator("//a[text()='Frontdesk']");
+  constructor(page) {
+    this.page = page;
+    this.Loginbutton = page.locator("(//button[@class='btn secondary-btn cancel-btn-size btn-secondary'])[2]");
+    this.usernameField = page.locator("//input[@name='phone']");
+    this.passwordField = page.locator("//input[@name='password']"); ''
+    // this.button=page.locator("//div[@class='login-button-box']/button");
+    this.switchrole = page.locator("//i[@class='v-icon notranslate mdi-24px mdi mdi-account-switch theme--light']");
+    this.user = page.locator("//a[text()='Frontdesk']");
 
 
-    }
-    async navigateURL(url) {
+  }
+  async navigateURL(url) {
     await this.page.goto(url);
     await this.Loginbutton.click();
   }

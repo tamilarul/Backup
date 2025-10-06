@@ -31,6 +31,7 @@ async report(year,month,date){
     await this.page.waitForTimeout(2000);
     await this.report_module.click();
     await this.startdate.click();
+    await this.startdate_year.click();
      await this.page.waitForTimeout(2000);
     await this.page.locator(`//a[text()='${year}']`);
     await this.page.locator(`//a[text()='${month}']`);
