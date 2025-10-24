@@ -32,12 +32,10 @@ test.describe.serial("SC001", () => {
     const loopTest = new FacilityDashboard(page);
     await loopTest.Testspecies();
 
-
-    const petName = 'Dove';
-
-
-    // Search and click View
-    await loopTest.searchAndClickView(petName);
+  
+    const {PetName} = loopdata[0] ;
+       // Search and click View
+    await loopTest.searchAndClickView(PetName);
 
   });
 });

@@ -10,13 +10,15 @@ export class FacilityDashboard {
   }
   async Testspecies() {
     await this.Testspecies_Module.click();
+          await this.page.waitForTimeout(2000);
+
   }
   async searchAndClickView(petName) {
     const tabCount = await this.tabs.count();
 
     for (let i = 0; i < tabCount; i++) {
       await this.tabs.nth(i).click();
-      await this.page.waitForTimeout(3000);
+      await this.page.waitForTimeout(2000);
 
       // Search
       await this.searchBox.fill(""); // clear previous
