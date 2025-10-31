@@ -1,38 +1,53 @@
 
 
-class AdoptHis{
-    constructor(page){
-       this.page=page;
-      
-       this.Adopthismodule=page.locator("//b[text()='Adoption History']/../../..");
-       this.search_adoption=page.locator("#petAdoptionHistoryQuickFilter");
+class AdoptHis {
+    constructor(page) {
+        this.page = page;
 
+        this.Adopthismodule = page.locator("//b[text()='Adoption History']/../../..");
+        //Tabs
+        this.tabs = page.locator("div.v-tab");
+        this.searchBox = page.locator("input[placeholder='Search']");
+        //this.viewButton = page.locator(`#patient-history-rendered`);
 
-       this.fostertab=page.locator("//*[name()='svg' and @class='svg-inline--fa fa-hospital-user fa-w-20']");
-       this.Trialtab=page.locator("//*[name()='svg' and @class='svg-inline--fa fa-paw fa-w-16']");
-      this.Returntab=page.locator("//*[name()='svg' and @class='svg-inline--fa fa-undo fa-w-16']");
-this.dashboard=page.locator("//a[text()='Facility Dashboard']");
 
     }
 
-async AdoptionHistory(petnameadoption,petnamefoster,petnameTrial,petnamereturn){
+    async AdoptionHistory() {
+        await this.Adopthismodule.click();
+        await this.page.waitForTimeout(2000);
 
-    await this.Adopthismodule.click();
-    await this.search_adoption.fill(petnameadoption);
-    await this.fostertab.click();
-    await this.search_adoption.fill(petnamefoster);
+    }
+    async searchAndClickView(petName) {
+        const tabCount = await this.tabs.count();
 
-    await this.Trialtab.click();
-    await this.search_adoption.fill(petnameTrial);
 
-    await this.Returntab.click();
-    await this.search_adoption.fill(petnamereturn);
-   
-        await this.dashboard.click();
-    
+        for (let i = 0; i < tabCount; i++) {
+            await this.tabs.nth(i).click();
+            await this.page.waitForTimeout(2000);
 
-    
+            // Search
+            await this.searchBox.fill(""); // clear previous
+            await this.searchBox.fill(petName);
+            await this.page.waitForTimeout(2000);
+
+            //const isPetVisible = await this.page.locator(`//p[contains(text(),'${petName}')]`).isVisible().catch(() => false);
+            const pet = this.page.locator(`//p[contains(text(),'${petName}')]`);
+
+            if (await pet.isVisible().catch(() => false)) {
+                //  If the element is visible, do something
+                
+                console.log(`Pet '${petName}' is visible`);
+                await this.page.waitForTimeout(2000);
+                break;
+            }
+            else {
+                //  If not visible, handle it
+                console.log(`Pet '${petName}' not found`);
+            }
+
+        }
+    }
+
 }
-
-}
-    module.exports={AdoptHis}
+module.exports = { AdoptHis }

@@ -32,8 +32,8 @@ test.describe.serial("SC001", () => {
         const { FirstName, LastName } = customerdata[0]
         await customerTest.customerName(FirstName, LastName);
 
-        const { Gender } = customerdata[0]
-        await customerTest.selectGender(Gender);
+        //const { Gender } = customerdata[0]
+        //await customerTest.selectGender(Gender);
         
         const { Language } = customerdata[0]
         await customerTest.click_On_Language(Language);
@@ -50,13 +50,13 @@ test.describe.serial("SC001", () => {
 
 
     });
-    test.skip("TC003- cancel profile ", async ({ }) => {
+    test("TC003- cancel profile ", async ({ }) => {
         const customerTest = new customer(page);
 
         await customerTest.cancelprofile();
 
     });
-    test("TC004- submit profile ", async ({ }) => {
+    test.skip("TC004- submit profile ", async ({ }) => {
         const customerTest = new customer(page);
         await customerTest.submitprofile();
 

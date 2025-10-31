@@ -32,11 +32,12 @@ test.describe.serial
     });
 
      test("TC003 - Adoption History", async ({}) => {
-        const reportTest = new AdoptHis(page);
+        const AdoptionHisTest = new AdoptHis(page);
 
  console.log("Excel data:", AdoptHisdata);
-         const{AdoptionSearch,FosterSearch,TrialSearch,Return}=AdoptHisdata[0];
-         await reportTest.AdoptionHistory(AdoptionSearch,FosterSearch,TrialSearch,Return);
+         const{PetName}=AdoptHisdata[0];
+         await AdoptionHisTest.AdoptionHistory();
+         await AdoptionHisTest.searchAndClickView(PetName);
       
      });
     });

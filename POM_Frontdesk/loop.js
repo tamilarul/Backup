@@ -35,7 +35,8 @@ export class FacilityDashboard {
 
         await this.page.waitForTimeout(2000);
 
-        await this.viewButton.click(); // or any other action
+        await this.viewButton.click();
+        break; // or any other action
 
       }
       else {

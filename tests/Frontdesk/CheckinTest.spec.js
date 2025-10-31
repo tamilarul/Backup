@@ -43,14 +43,15 @@ test.describe.serial("New Entry Test", () => {
     //To choose location and click checkin button
     test("TC005 - Selectlocation", async ({ }) => {
         const checkinTest = new checkin(page);
-         const {location} = Checkindata[0];
+         const {location} = Checkindata[2];  //0-->TestRoom, 2->Testcage  4-->Testkennel
         await checkinTest.location
         (location);
     });
 
     test("TC006 - To Select room", async ({ }) => {
         const checkinTest = new checkin(page);
-        const {roomname} = Checkindata[0];
+        const {roomname} = Checkindata[2];     //0-->TestRoomOne, 2->TestcageOne, 4-->TestkennelOne
+                                              // 1-->TestRoomtwo, 3->TestcagrTwo, 5-->Testkenneltwo
         await checkinTest.Room(roomname);
     });
 

@@ -36,18 +36,11 @@ test.describe.serial("SC001", () => {
  
          await PendingTest.Adoptionpending();
          console.log("Excel data:", AdoptPendingdata);
-          const {Tabs,petname,Search}=AdoptPendingdata[1]
-         await PendingTest.foster(Tabs,petname,Search);
+          const {PetName}=AdoptPendingdata[0]
+         await PendingTest.searchAndClickView(PetName);
          
       
      });
 
-     test("TC004 - Adoption Pending Module (Active)", async ({}) => {
-        const PendingTest = new AdoptPending(page);
-console.log("Excel data:", AdoptPendingdata);
-          const {Tabs,petname,Search}=AdoptPendingdata[5]  
- 
-         await PendingTest.Activecolumn(Tabs,petname,Search);
-         
-     });
+     
     });

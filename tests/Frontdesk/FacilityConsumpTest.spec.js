@@ -36,8 +36,9 @@ test.describe.serial
 
          console.log("Excel data:", consumdata);
        
-          const {Room,PetName,Searchconsum,Batch,Quantity,Additional} = consumdata[0];
-            await consumTest.Testspecies(Room,PetName);
+          const {PetName,Searchconsum,Batch,Quantity,Additional} = consumdata[0];
+            await consumTest.Testspecies();
+            await consumTest.searchAndClickView(PetName)
          await consumTest.Consumption(Searchconsum);
          await consumTest.batchNo(Batch);
          await consumTest.quantityNo(Quantity);

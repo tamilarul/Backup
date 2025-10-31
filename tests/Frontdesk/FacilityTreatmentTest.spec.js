@@ -35,9 +35,10 @@ test("TC003 -Facility treatment module", async ({}) => {
         const TreatmentTest = new Treatment(page);
     
          console.log("Excel data:", Treatmentdata);
-         const{Room,PetName,TreatmentName,TreatmentDrop,Veterinarian}=Treatmentdata[0];
+         const{PetName,TreatmentName,TreatmentDrop,Veterinarian}=Treatmentdata[0];
 
-         await TreatmentTest.Testspecies(Room,PetName);
+         await TreatmentTest.Testspecies();
+         await TreatmentTest.searchAndClickView(PetName)
          await TreatmentTest.Treatmentmodule(TreatmentName,TreatmentDrop);
          await TreatmentTest.treatmentVet(Veterinarian);
          await TreatmentTest.treatment_Date();

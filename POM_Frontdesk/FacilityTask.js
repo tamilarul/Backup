@@ -1,44 +1,50 @@
 
 
-class task{
-    constructor(page){
-    this.page=page;
-    //To click Stray Surrender 
-    this.Testspecies_Module=page.locator("//b[text()='Testspecies ']/../../..");
-    // to Click the EHR Tab
-    this.tasktab=page.locator("//div[contains(text(),'  Task')]");
-    //To click the add button
-    this.createtaskbtn=page.locator("//button[@class='btn primary-btn submit-btn-size mr-2 btn-secondary']")
+class task {
+    constructor(page) {
+        this.page = page;
+        //To click Stray Surrender 
+        this.Testspecies_Module = page.locator("//b[text()='Testspecies ']/../../..");
+        //Tabs
+        this.tabs = page.locator("div.v-tab");
+        // Search the pet
+        this.searchBox = page.locator("input[placeholder='Search']");
+        // Viewbutton
+        this.viewbutton = page.locator("//button[@class='btn view-btn btn-secondary']");
+        // to Click the EHR Tab
+        this.tasktab = page.locator("//div[contains(text(),'Task')]");
+        //To click the add button
+        this.createtaskbtn = page.locator("//button[@class='btn primary-btn submit-btn-size mr-2 btn-secondary']")
 
-    // To enter the task name
-    this.taskname=page.locator("#name");
-    // project field
-    this.projectdrop=page.locator("//label[text()='Project']/following-sibling::select[@class='custom-select']");
-    //To select Planned Hours
-        this.plannedHours=page.locator("//label[text()='Planned Hours']/../div/input");
+        // To enter the task name
+        this.taskname = page.locator("#name");
+        // project field
+        this.projectdrop = page.locator("//label[text()='Project']/following-sibling::select[@class='custom-select']");
+        //To select Planned Hours
+        this.plannedHours = page.locator("//label[text()='Planned Hours']/../div/input");
 
-       //To Select Start Time
-        this.starttime=page.locator("//label[text()='Start Time']/../div/input");
-        this.okbutton=page.locator("//button[text()='OK']");
-        
+        //To Select Start Time
+        this.starttime = page.locator("//label[text()='Start Time']/../div/input");
+        this.okbutton = page.locator("//button[text()='OK']");
+
         // to Select End Time
-        this.endtime=page.locator("//label[text()='End Time']/../div/input");
-        this.okbutton1=page.locator("(//button[text()='OK'])[2]")
-        
-        this.priority=page.locator("(//*[name()='svg' and @class='bi-star b-icon bi text-warning'])[1]");
-        this.description=page.locator("//textarea[@id='descValue']");
+        this.endtime = page.locator("//label[text()='End Time']/../div/input");
+        this.okbutton1 = page.locator("(//button[text()='OK'])[2]")
+
+        this.priority = page.locator("(//*[name()='svg' and @class='bi-star b-icon bi text-warning'])[1]");
+        this.description = page.locator("//textarea[@id='descValue']");
 
         //to cancel the appointment
-        this.cancel=page.locator("//button[@class='btn secondary-btn cancel-btn-size mr-3 btn-secondary']");
-        this.no=page.locator("//button[@class='el-button el-button--default el-button--small']");
-        this.yes=page.locator("//button[@class='el-button el-button--default el-button--small el-button--primary ']");
+        this.cancel = page.locator("//button[@class='btn secondary-btn cancel-btn-size mr-3 btn-secondary']");
+        this.no = page.locator("//button[@class='el-button el-button--default el-button--small']");
+        this.yes = page.locator("//button[@class='el-button el-button--default el-button--small el-button--primary ']");
 
         //To Submit the Appointmtnet
-        this.submit=page.locator("(//button[@class='btn primary-btn submit-btn-size btn-secondary'])[1]");
-        this.submnitNo=page.locator("//button[@class='el-button el-button--default el-button--small']");
-        this.yessubmit=page.locator("//button[@class='el-button el-button--default el-button--small el-button--primary ']");
+        this.submit = page.locator("(//button[@class='btn primary-btn submit-btn-size btn-secondary'])[1]");
+        this.submnitNo = page.locator("//button[@class='el-button el-button--default el-button--small']");
+        this.yessubmit = page.locator("//button[@class='el-button el-button--default el-button--small el-button--primary ']");
 
-                
+
 
 
 
@@ -47,21 +53,50 @@ class task{
     }
 
 
-    async Testspecies(room,petname){
+    async Testspecies() {
         await this.Testspecies_Module.click();
-         await this.page.locator(`//div[contains(text(),' ${room}')]`).click();
-        await this.page.locator(`//p[contains(text(),'${petname}')]/../../../following-sibling::div[@col-id='action']`).click();
+        await this.page.waitForTimeout(2000);
+
 
     }
+    async searchAndClickView(petName) {
+        const tabCount = await this.tabs.count();
+        for (let i = 0; i < tabCount; i++) {
+            await this.tabs.nth(i).click();
+            await this.page.waitForTimeout(2000);
 
-     async Taskmodule(task,project,time,des){
+            // Search
+            await this.searchBox.fill(""); // clear previous
+            await this.searchBox.fill(petName);
+            await this.page.waitForTimeout(2000);
+
+            //const isPetVisible = await this.page.locator(`//p[contains(text(),'${petName}')]`).isVisible().catch(() => false);
+            const pet = this.page.locator(`//p[contains(text(),'${petName}')]`);
+
+            if (await pet.isVisible().catch(() => false)) {
+                //  If the element is visible, do something
+
+                console.log(`Pet '${petName}' is visible`);
+                await this.page.waitForTimeout(2000);
+                await this.viewbutton.click();
+                break;
+            }
+            else {
+                //  If not visible, handle it
+                console.log(`Pet '${petName}' not found`);
+            }
+
+        }
+    }
+
+    async Taskmodule(task, project, time, des) {
         await this.tasktab.click();
         await this.createtaskbtn.click();
 
         await this.taskname.fill(task);
-        await this.projectdrop.selectOption({label: project});
+        await this.projectdrop.selectOption({ label: project });
         await this.plannedHours.click();
-        
+
         await this.page.locator(`//div[text()='${time}']`).click();
         await this.starttime.click();
         await this.okbutton.click();
@@ -70,24 +105,24 @@ class task{
         await this.priority.click();
         await this.description.fill(des)
 
-        }
-        //To cancel the request
-        async CancelRequest(){
+    }
+    //To cancel the request
+    async CancelRequest() {
         await this.cancel.click();
         await this.no.click();
         await this.cancel.click();
         await this.yes.click();
-        }
+    }
 
-         async submitrequest(){
-         await this.submit.click();
-         await this.submnitNo.click();
-         await this.submit.click();
-         await this.yessubmit.click();
-     }
+    async submitrequest() {
+        await this.submit.click();
+        await this.submnitNo.click();
+        await this.submit.click();
+        await this.yessubmit.click();
+    }
 
-     async Tasktab(tab){
-      await this.page.locator(`//div[contains(text(),'${tab}')]`).click();
-     }
+    async Tasktab(tab) {
+        await this.page.locator(`//div[contains(text(),'${tab}')]`).click();
+    }
 }
-module.exports={task};
+module.exports = { task };

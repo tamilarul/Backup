@@ -4,6 +4,7 @@ import { LoginPage } from "../../POM_Frontdesk/LoginPage.js";
 import { Newentry } from "../../POM_Frontdesk/NewEntry.js";
 import { assessment } from "../../POM_Frontdesk/Assessment.js";
 import { readExcel } from '../../utils/logindata.js';
+import { skip } from "node:test";
 
 let page
 let context;
@@ -31,8 +32,9 @@ test.describe.serial("SC001", () => {
     });
     test("TC003 - home page of facility(Testspecies)", async ({}) => {
         const assessTest = new assessment(page);
-        const {Room,PetName} = assessdata[2];
-          await assessTest.Testspecies(Room,PetName); // 1 or 2
+        const {PetName} = assessdata[0];
+          await assessTest.Testspecies();
+          await assessTest.searchAndClickView(PetName);
     });
 
     //Fill the assessment details
@@ -56,7 +58,7 @@ test.describe.serial("SC001", () => {
     //to checkin
 test("TC007 - Checkin", async ({}) => {
         const assessTest = new assessment(page);
-        const {Roomscheck,CheckinRoominside} = assessdata[1];  //1 or 2
+        const {Roomscheck,CheckinRoominside} = assessdata[0];  //0->TestRoom, 1->Testcage, 2->Testkennel
         await assessTest.checkinmodule(Roomscheck,CheckinRoominside);
 });
    // to cancel checkin
@@ -71,13 +73,13 @@ test("TC009 - submit room", async ({}) => {
 });
 
 // To swtich room
-test.skip("TC010 - switch room", async ({}) => {
+test("TC010 - switch room", async ({}) => {
         const assessTest = new assessment(page);
-        const {SwitchRoom} = assessdata[1];
+        const {SwitchRoom} = assessdata[0];           //0->TestRoomTwo, 1->TestcageTwo, 2->TestkennelTwo
         await assessTest.switchroom(SwitchRoom);
 });
-// to cancrl switch
-test.skip("TC011 - Cancel switch room", async ({}) => {
+// to cancel switch
+test("TC011 - Cancel switch room", async ({}) => {
         const assessTest = new assessment(page);
         await assessTest.cancel_room();
 });
@@ -91,7 +93,7 @@ test.skip("TC012 - submit switch room", async ({}) => {
 // To view the room history
 test("TC013 - room history", async ({}) => {
         const assessTest = new assessment(page);
-       const {Historybutton,Cancelicon} = assessdata[1]; 
+       const {Historybutton,Cancelicon} = assessdata[0]; 
         await assessTest.roomhistoryview(Historybutton,Cancelicon);
 });
 

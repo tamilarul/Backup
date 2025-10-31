@@ -9,8 +9,8 @@ const Deathdata=require('../../utils/DeathCertificatedata.json');
 
 let page
 let context;
-const logindata = readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx", "login");
-const Assetdata = readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx", "Asset");
+//const logindata = readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx", "login");
+//const Assetdata = readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx", "Asset");
 
 test.describe.serial("SC001", () => {
     
