@@ -42,10 +42,10 @@ test.describe.serial("SC001", () => {
     test("TC004 -  Pet Profile ", async ({}) => {
 
         const PetTest = new pet(page);
-        const{PetName,Colour,Weight,Behaviour,AgeGroup}=Petdata[0]
+        const{PetNameprofile,Colour,Weight,Behaviour,AgeGroup}=Petdata[0]
         const{Spayed,Temparament,SuitedTo,MyStory,GoodwithCats,GoodwithDogs,GoodwithKids,AdditionalImages}=Petdata[0]
         await PetTest.editProfile();
-        await PetTest.editPetdetails(PetName,Colour,Weight,Behaviour,AgeGroup,Spayed,Temparament,SuitedTo,MyStory,GoodwithCats,GoodwithDogs,GoodwithKids)
+        await PetTest.editPetdetails(PetNameprofile,Colour,Weight,Behaviour,AgeGroup,Spayed,Temparament,SuitedTo,MyStory,GoodwithCats,GoodwithDogs,GoodwithKids)
         await PetTest.picProfile(AdditionalImages);
     });
     test("TC005 -  Medical History", async ({}) => {

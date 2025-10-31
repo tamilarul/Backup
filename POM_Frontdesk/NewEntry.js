@@ -9,7 +9,7 @@ class Newentry{
        this.cusname=page.locator("//b[text()=' Animal Control Team( User ID : 5928, Phone : 9488811186, Date of birth : 2024-08-07 )']");
        this.pet=page.locator("//label[contains(text(),'Pet')]/../following-sibling::div/div/div/div/input");
 
-       this.petname=page.locator("#search-formul-list-three");
+      // this.petname=page.locator("#search-formul-list-three");
 
        this.date=page.locator("//div[@class='el-date-editor el-input el-input--prefix el-input--suffix el-date-editor--date']");
        this.todaydate=page.locator("//td[@class='available today']/div");
@@ -35,11 +35,11 @@ class Newentry{
         await this.Newentrybtn.click();
 
     }
-        async stray(Team,petname,complaint1){
+        async stray(Team,petname,petid,complaint1){
         await this.customer.fill(Team);
         await this.cusname.click();
         await this.pet.fill(petname);
-        await this.petname.click();
+        await this.page.locator(`//b[contains(text(),' ${petid}')]`).click();
         await this.date.click();
         await this.todaydate.click();
         await this.complaint.fill(complaint1);

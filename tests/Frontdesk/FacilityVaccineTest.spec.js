@@ -36,8 +36,9 @@ test.describe.serial
 
             console.log("Excel data:", Vaccinedata);
 
-            const { Room, PetName, VaccineName, Vaccinedropdown, Batch, Manufacturer, Veterinarian } = Vaccinedata[0];
-            await vaccineTest.Testspecies(Room, PetName);
+            const { PetName, VaccineName, Vaccinedropdown, Batch, Manufacturer, Veterinarian } = Vaccinedata[0];
+            await vaccineTest.Testspecies( );
+            await vaccineTest.searchAndClickView(PetName)
             await vaccineTest.vaccinetab();
             await vaccineTest.vaccine(VaccineName, Vaccinedropdown);
             await vaccineTest.vaccineBatch_VaccineManufacture(Batch, Manufacturer);

@@ -35,8 +35,10 @@ test.describe.serial("SC001", () => {
         const MicrochipTest = new MicrochipHis(page);
 
         console.log("Excel data:", Microchipdata);
-        const { Tab } = Microchipdata[1];
-        await MicrochipTest.Microchip(Tab);
+        const { PetName } = Microchipdata[0];
+        await MicrochipTest.Microchip();
+        await MicrochipTest.searchAndClickView(PetName);
+        await MicrochipTest.Download();
 
     });
 

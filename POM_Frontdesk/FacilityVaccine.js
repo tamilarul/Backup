@@ -1,100 +1,135 @@
-class vaccine{
-    constructor(page){
-    this.page=page;
+class vaccine {
+  constructor(page) {
+    this.page = page;
     //To click Stray Surrender 
-    this.Testspecies_Module=page.locator("//b[text()='Testspecies ']/../../..");
+    this.Testspecies_Module = page.locator("//b[text()='Testspecies ']/../../..");
+    //Tabs
+    this.tabs = page.locator("div.v-tab");
+    // Search the pet
+    this.searchBox = page.locator("input[placeholder='Search']");
+    // Viewbutton
+    this.viewbutton = page.locator("//button[@class='btn view-btn btn-secondary']");
     // to Click the EHR Tab
-    this.vaccine_tab=page.locator("//div[contains(text(),'  Vaccine')]");
+    this.vaccine_tab = page.locator("//div[contains(text(),'  Vaccine')]");
     //To click the add button
-    this.addbtn=page.locator("//button[@class='btn primary-btn add-btn-size btn-secondary']");
+    this.addbtn = page.locator("//button[@class='btn primary-btn add-btn-size btn-secondary']");
 
     this.searchvaccine = page.locator("//div[@id='vaccinename']//input")  //  search bar -->type Vaccine name
-        this.vaccineName = page.locator("//b[contains(text(),' TestVaccine')]");  //vaccine name in tables
-        this.vacBatch = page.locator("#batchno");
-        this.vacManufacture = page.locator("#manufacturer");
+    this.vaccineName = page.locator("//b[contains(text(),' TestVaccine')]");  //vaccine name in tables
+    this.vacBatch = page.locator("#batchno");
+    this.vacManufacture = page.locator("#manufacturer");
 
-        this.vaccineExpiry = page.locator("#expirydate");
-        this.vaccineExpiryDate = page.locator("(//tr[@class='el-date-table__row']/td[@class='available today']/div/span)[1]");
+    this.vaccineExpiry = page.locator("#expirydate");
+    this.vaccineExpiryDate = page.locator("(//tr[@class='el-date-table__row']/td[@class='available today']/div/span)[1]");
 
-        this.veterinarianSelect = page.locator("//select[@id='doctorname']");
+    this.veterinarianSelect = page.locator("//select[@id='doctorname']");
 
-        this.vaccinateddate = page.locator("#vaccinateddate");
-        this.select_vaccinateddate=page.locator("//td[@class='available today']/div");
+    this.vaccinateddate = page.locator("#vaccinateddate");
+    this.select_vaccinateddate = page.locator("//td[@class='available today']/div");
 
-        this.vaccinedate_year=page.locator("(//span[text()='2025 '])[3]");
+    this.vaccinedate_year = page.locator("(//span[text()='2025 '])[3]");
 
-        this.nextVaccinefield = page.locator("#nextdate")  //click next date
-      //  this.nextdate_year=page.locator("(//span[text()='2025 '])[3]");
-      
-this.cancelbtn=page.locator("//button[@class='btn secondary-btn cancel-btn-size mr-3 btn-secondary']");
-this.no_cancel=page.locator("//button[@class='el-button el-button--default el-button--small']");
-this.yes_cancel=page.locator("//button[@class='el-button el-button--default el-button--small el-button--primary ']");
+    this.nextVaccinefield = page.locator("#nextdate")  //click next date
+    //  this.nextdate_year=page.locator("(//span[text()='2025 '])[3]");
 
-//submit
-this.submitbtn=page.locator("(//button[@class='btn primary-btn submit-btn-size btn-secondary'])[1]");
-this.no_submit=page.locator("//button[@class='el-button el-button--default el-button--small']");
-this.yes_submit=page.locator("//button[@class='el-button el-button--default el-button--small el-button--primary ']");
+    this.cancelbtn = page.locator("//button[@class='btn secondary-btn cancel-btn-size mr-3 btn-secondary']");
+    this.no_cancel = page.locator("//button[@class='el-button el-button--default el-button--small']");
+    this.yes_cancel = page.locator("//button[@class='el-button el-button--default el-button--small el-button--primary ']");
+
+    //submit
+    this.submitbtn = page.locator("(//button[@class='btn primary-btn submit-btn-size btn-secondary'])[1]");
+    this.no_submit = page.locator("//button[@class='el-button el-button--default el-button--small']");
+    this.yes_submit = page.locator("//button[@class='el-button el-button--default el-button--small el-button--primary ']");
 
 
 
+
+  }
+  async Testspecies(room, petname) {
+    await this.Testspecies_Module.click();
+    await this.page.waitForTimeout(2000);
+
+
+  }
+  async searchAndClickView(petName) {
+    const tabCount = await this.tabs.count();
+    for (let i = 0; i < tabCount; i++) {
+      await this.tabs.nth(i).click();
+      await this.page.waitForTimeout(2000);
+
+      // Search
+      await this.searchBox.fill(""); // clear previous
+      await this.searchBox.fill(petName);
+      await this.page.waitForTimeout(2000);
+
+      //const isPetVisible = await this.page.locator(`//p[contains(text(),'${petName}')]`).isVisible().catch(() => false);
+      const pet = this.page.locator(`//p[contains(text(),'${petName}')]`);
+
+      if (await pet.isVisible().catch(() => false)) {
+        //  If the element is visible, do something
+
+        console.log(`Pet '${petName}' is visible`);
+        await this.page.waitForTimeout(2000);
+        await this.viewbutton.click();
+        break;
+      }
+      else {
+        //  If not visible, handle it
+        console.log(`Pet '${petName}' not found`);
+      }
 
     }
-    async Testspecies(room,petname){
-        await this.Testspecies_Module.click();
-         await this.page.locator(`//div[contains(text(),' ${room}')]`).click();
-        await this.page.locator(`//p[contains(text(),'${petname}')]/../../../following-sibling::div[@col-id='action']`).click();
+  }
+  async vaccinetab() {
+    await this.vaccine_tab.click();
+  }
+  async vaccine(nameOfVaccine, vaccinedrop) {
 
-    }
-   async vaccinetab(){
- await this.vaccine_tab.click();
-   }
-async vaccine(nameOfVaccine,vaccinedrop) {
-   
     await this.addbtn.click();
-      await this.searchvaccine.type(nameOfVaccine);
+    await this.searchvaccine.type(nameOfVaccine);
 
-        await this.page.locator(`//b[contains(text(),' ${vaccinedrop}')]`).click();
-        await this.page.waitForTimeout(1000);
-    }
-    async vaccineBatch_VaccineManufacture(batch, manuftre) {
-        await this.vacBatch.fill(batch);
-        await this.vacManufacture.fill(manuftre)
- 
- 
-    }
-    //Vaccine date
-    async expiryDate() {
-        await this.vaccineExpiry.click();
-        // await this.page.waitForTimeout(1000);
-        await this.vaccineExpiryDate.click();
-        // await this.page.waitForTimeout(2000);
-    }
- 
-    async selectVeterinarian(vetName) {
+    await this.page.locator(`//b[contains(text(),' ${vaccinedrop}')]`).click();
+    await this.page.waitForTimeout(1000);
+  }
+  async vaccineBatch_VaccineManufacture(batch, manuftre) {
+    await this.vacBatch.fill(batch);
+    await this.vacManufacture.fill(manuftre)
+
+
+  }
+  //Vaccine date
+  async expiryDate() {
+    await this.vaccineExpiry.click();
+    // await this.page.waitForTimeout(1000);
+    await this.vaccineExpiryDate.click();
+    // await this.page.waitForTimeout(2000);
+  }
+
+  async selectVeterinarian(vetName) {
     // select by visible label
     await this.veterinarianSelect.selectOption({ label: vetName });
-    }
-    async vaccinedate() {
- 
-        await this.vaccinateddate.click();
-        await this.select_vaccinateddate.click();
-        
-        /*await this.vaccinedate_year.click();
-        await this.page.locator(`//a[text()='${year}']`).click();
-    await this.page.locator(`//a[text()='${month}']`).click();
-    await this.page.locator(`//span[contains(text(),'${date}')]`).click();*/
+  }
+  async vaccinedate() {
 
- 
-    }
-    async nextDate(month,monthname,mon) {
-        await this.nextVaccinefield.click();
-       await this.page.locator(`(//span[text()='${month}'])[3]`).click();
-       await this.page.locator(`(//a[text()='${monthname}'])[3]`).click();
-       await this.page.locator(`//span[text()='${mon}']/../following-sibling::div/table/tbody/tr[@class='el-date-table__row']/td[@class='available']/div/span[contains(text(),' 21')]`).click();
-       await this.page.waitForTimeout(2000);
-   
- 
-}
+    await this.vaccinateddate.click();
+    await this.select_vaccinateddate.click();
+
+    /*await this.vaccinedate_year.click();
+    await this.page.locator(`//a[text()='${year}']`).click();
+await this.page.locator(`//a[text()='${month}']`).click();
+await this.page.locator(`//span[contains(text(),'${date}')]`).click();*/
+
+
+  }
+  async nextDate(month, monthname, mon) {
+    await this.nextVaccinefield.click();
+    await this.page.locator(`(//span[text()='${month}'])[3]`).click();
+    await this.page.locator(`(//a[text()='${monthname}'])[3]`).click();
+    await this.page.locator(`//span[text()='${mon}']/../following-sibling::div/table/tbody/tr[@class='el-date-table__row']/td[@class='available']/div/span[contains(text(),' 21')]`).click();
+    await this.page.waitForTimeout(2000);
+
+
+  }
   async cancelvaccine() {
     await this.cancelbtn.click();
     await this.no_cancel.click();
@@ -109,4 +144,4 @@ async vaccine(nameOfVaccine,vaccinedrop) {
   }
 
 }
-module.exports={vaccine};
+module.exports = { vaccine };

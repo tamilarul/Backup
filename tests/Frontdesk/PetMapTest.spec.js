@@ -10,7 +10,7 @@ let page
 let context;
 
 const logindata=readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx","login");
-const mapdata=readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx","mapdata");
+const mapdata=readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx","PetMap");
 
 test.describe.serial("SC001", () => {
     
