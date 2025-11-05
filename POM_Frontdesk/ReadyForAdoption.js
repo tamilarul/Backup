@@ -25,6 +25,8 @@ class ReadyforAdoption {
     async ReadyForAdoption(tab) {
         await this.ReadyforAdopt_module.click();
         await this.page.locator(`//div[contains(text(),' ${tab}')]`).click();
+    }
+    async ApplyFilter(){
         await this.filter.click();
         await this.value_filter.click();
     }

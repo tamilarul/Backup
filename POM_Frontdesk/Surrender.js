@@ -60,10 +60,10 @@ class surrender{
 
     }
 
-    async surrenderPet(cus){
+    async surrenderPet(cus,cusid){
       await this.surrenderbtn.click();
       await this.customer_search.fill(cus);
-      await this.customer_name.click();
+      await this.page.locator(` //b[contains(text(),'${cusid}')]`).click();
       await this.page.waitForTimeout(5000);
       await this.wait_element.waitFor({state: 'visible'});
       
@@ -75,7 +75,7 @@ class surrender{
 
     }
     async pet(petname){
-        await this.page.click(`//b[text()="${petname}"]`);
+        await this.page.locator(`//b[text()="${petname}"]`).click();
 
     }
      async cancelpet(){

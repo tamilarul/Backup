@@ -35,10 +35,11 @@ test.describe.serial
         const RxTest = new Rx(page);
 
          console.log("Excel data:", RXdata);
+         const{PetName}=RXdata[1];
          await RxTest.Testspecies();
+         await RxTest.searchAndClickView(PetName);
 
-         const{Room,PetName}=RXdata[4];
-         await RxTest.species(Room,PetName);
+
 
          const{RxTab}=RXdata[1];
          await RxTest.Rx(RxTab);

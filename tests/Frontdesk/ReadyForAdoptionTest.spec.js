@@ -20,8 +20,6 @@ test.describe.serial
          page = await context.newPage();
          const loginTest = new LoginPage(page);
          const { Url, Username, Password } = logindata[0];
-
-
          await loginTest.navigateURL(Url);
          await loginTest.credentials(Username, Password);
       });
@@ -37,21 +35,22 @@ test.describe.serial
          console.log("Excel data:", ReadyForAdoptiondata);
          const { Tab } = ReadyForAdoptiondata[0];
          await ReadyForAdoptionTest.ReadyForAdoption(Tab);
+         await ReadyForAdoptionTest.ApplyFilter();
 
 
       });
 
       test.skip("TC004 - To View the pet", async ({ }) => {
          const ReadyForAdoptionTest = new ReadyforAdoption(page);
-         const { PetName } = ReadyForAdoptiondata[2];
-         await ReadyForAdoptionTest.viewbtn(PetName);
+         const { PetNameView } = ReadyForAdoptiondata[2];
+         await ReadyForAdoptionTest.viewbtn(PetNameView);
 
       });
 
       test("TC005 - To Adopt the pet", async ({ }) => {
          const ReadyForAdoptionTest = new ReadyforAdoption(page);
-         const { Adopt, CustName, CusNo, Form } = ReadyForAdoptiondata[0];
-         await ReadyForAdoptionTest.adoptbtn(Adopt, CustName, CusNo, Form);
+         const { PetNameAdopt, CustName, CusNo, Form } = ReadyForAdoptiondata[0];
+         await ReadyForAdoptionTest.adoptbtn(PetNameAdopt, CustName, CusNo, Form);
       });
 
       test("TC006 - To cancel", async ({ }) => {
@@ -62,7 +61,7 @@ test.describe.serial
 
       test.skip("TC005 - To submit the pet", async ({ }) => {
          const ReadyForAdoptionTest = new ReadyforAdoption(page);
-          const { Form } = ReadyForAdoptiondata[0];
+         const { Form } = ReadyForAdoptiondata[0];
          await ReadyForAdoptionTest.submitform(Form);
 
       });

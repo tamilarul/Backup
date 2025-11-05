@@ -10,7 +10,7 @@ let page
 let context;
 
 const logindata=readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx","login");
-const mapUnmapdata=readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx","PetmapUnmapHis");
+const mapUnmapHisdata=readExcel("C:/Users/TamilselviArul/Downloads/data.xlsx","PetmapUnmapHis");
 
 test.describe.serial("SC001", () => {
     
@@ -35,9 +35,11 @@ test.describe.serial("SC001", () => {
      test("TC003 - Pet Map and Unmap Module", async ({}) => {
         const  mapUnmapTest = new MapUnmapHis(page);
 
-          console.log("Excel data:", mapUnmapdata);
-         const{Tab}=mapUnmapdata[1];
-         await mapUnmapTest.PetMapUnmap(Tab);
+          console.log("Excel data:", mapUnmapHisdata);
+         const{PetName}=mapUnmapHisdata[0];
+         await mapUnmapTest.PetMapUnmap();
+         await mapUnmapTest.searchAndClickView(PetName);
+         await mapUnmapTest.download();
       
      });
 
@@ -48,8 +50,7 @@ test.describe.serial("SC001", () => {
 
      test("TC005 - Facility Navigate", async ({}) => {
         const  mapUnmapTest = new MapUnmapHis(page);
-        const{CusName}=mapUnmapdata[0];
-        await mapUnmapTest.navigateback(CusName);
+        await mapUnmapTest.navigateback();
      });
 
     });
